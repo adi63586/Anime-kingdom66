@@ -1,0 +1,14 @@
+import { useState } from 'react'; import { Card, CardContent } from "@/components/ui/card"; import { Input } from "@/components/ui/input"; import { Button } from "@/components/ui/button";
+
+export default function AnimeKingdom() { const [password, setPassword] = useState(''); const [authenticated, setAuthenticated] = useState(false); const [search, setSearch] = useState('');
+
+const correctPassword = "Aditya3586thakur6";
+
+const episodes = [ { title: "Itachi vs Madara - Episode 1", downloadLink: "#" }, { title: "Naruto Awakens - Episode 2", downloadLink: "#" }, // Add more episodes here ];
+
+const filteredEpisodes = episodes.filter(ep => ep.title.toLowerCase().includes(search.toLowerCase()) );
+
+if (!authenticated) { return ( <div className="min-h-screen flex items-center justify-center bg-black text-white"> <div className="space-y-4 p-6 rounded-xl shadow-xl bg-gray-900"> <h1 className="text-xl font-bold">Enter Password to Access Anime Kingdom</h1> <Input type="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} /> <Button onClick={() => setAuthenticated(password === correctPassword)}> Enter </Button> </div> </div> ); }
+
+return ( <div className="min-h-screen bg-gray-950 text-white p-4"> <h1 className="text-3xl font-bold mb-4">Anime Kingdom by Aditya Thakur</h1> <Input className="mb-6" placeholder="Search episodes..." value={search} onChange={(e) => setSearch(e.target.value)} /> <div className="grid gap-4"> {filteredEpisodes.map((ep, index) => ( <Card key={index} className="bg-gray-800"> <CardContent className="p-4 flex justify-between items-center"> <span>{ep.title}</span> <a href={ep.downloadLink} className="text-blue-400 hover:underline"> Download </a> </CardContent> </Card> ))} </div> </div> ); }
+
